@@ -18,7 +18,7 @@ namespace WebBlog.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            var tags = await _blogPostRepository.GetAllAsync();
+            var tags = await _tagRepository.GetAllAsync();
 
             var model = new AddBlogPostRequest
             {
@@ -130,6 +130,17 @@ namespace WebBlog.Controllers
                 return RedirectToAction("Edit");
             }
             return RedirectToAction("Edit"); // test commit
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(EditBlogPostRequest editBlogPostRequest)
+        {
+            var deletedBlog = await _blogPostRepository.DeleteAsync(editBlogPostRequest.Id);
+            if (deletedBlog != null)
+            {
+                return RedirectToAction("List");
+            }
+            return RedirectToAction("Edit", new { id = editBlogPostRequest.Id });
         }
     }
 }

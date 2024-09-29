@@ -8,4 +8,4 @@ and do a ef migration in a PM console
 
 dotnet ef database update
 
-and insert data into database after update (optional)
+and insert data into database after update in BlogSQL.sql (optional)
